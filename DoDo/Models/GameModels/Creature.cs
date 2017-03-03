@@ -6,18 +6,29 @@ using System.Threading.Tasks;
 
 namespace DoDo.Models.GameModels
 {
-    public class Creature : GameObject
+
+    public abstract class Creature : GameObject
     {
         public int Health { get; set; }
 
         public int Gold { get; set; } = 0;
 
-        public int Attack { get; set; }
+        public int Damage { get; set; }
 
-        public Creature(string name, int health, int attack) : base(name)
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        public Creature(string name, int health, int damage) : base(name)
         {
             Health = health;
-            Attack = attack;
+            Damage = damage;
         }
+
+        public void AttackedBy(Creature attacker) => Health -= attacker.Damage;
+
+        public bool IsDead => Health < 0;
+
+        public abstract void ResetStats();
     }
 }
